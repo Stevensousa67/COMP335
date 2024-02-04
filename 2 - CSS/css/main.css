@@ -1,0 +1,31 @@
+/* c style comments */
+aside a{
+  background-color:rgb(100, 159, 236);
+  border:5px double;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  /* h-offset, v-offset, blur, spread, color ... */
+  box-shadow: 5px 5px 0 0 rgb(52, 59, 44);
+  color:rgb(198, 42, 61); 
+  display:block;
+  font-size:1.75rem;
+  /* clockwise Top, Right, Bottom, Left*/
+  margin:5px 10px 15px 20px;  
+  /* If the padding property has two values:
+    top and bottom padding are 15px
+    right and left padding are 0px*/
+  padding: 15px 0; 
+  text-align:center;
+  /* remove underline for tag <a> */
+  text-decoration:none; 
+}
+aside p{
+  font-size:medium;
+  text-align:left;
+}
+h1 {
+  font-size:x-large;
+  text-align-last:center;
+}

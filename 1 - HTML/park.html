@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" >
+  <title>Share your Travels -- New York - Central Park</title>
+</head>
+<body>
+  <h1> Share your Travels</h1>
+  <h2> New York - Central Park </h2>
+  <p>Photo by Randy Connolly</p>
+  <p>This photo of Conservatory Pond
+    <a href="http://www.centralpark.com">Central Park</a>
+    New York City was taken on Oct.22, 2011 with a
+    <strong> Canon EOS 360</strong> camera.
+  </p>
+  <!--
+    image elememt, along with form elements, are something called "replaced content". 
+    That means they're not really part of your HTML, but supplied by the browser. 
+    When the browser renders your HTML and finds replaced content, 
+    it leaves a box for it, and then replaces that box with the actual content. 
+    This is why, for example, image and form elements can't have pseudo-elements: 
+    they get replaced when the browser replaces the entire element.
+  -->
+  <img src="./img/central-park.jpg" title="Central Park" alt="Central Park" width="240" />
+  <h3>Reviews</h3>
+  <div>
+    <p>By Richardo on <time>September 15, 2012</time></p>
+    <p>Easy on the HDR (High Dynamic Range) buddy.</p>
+  </div>
+  <div>
+    <p>By Susan on <time>October 1, 2012</time></p>
+    <p>I love Central Park.</p>
+  </div>
+  <p><small>Copyrigt &copy;2012 Share your Travels</small></p>
+</body>
+</html>

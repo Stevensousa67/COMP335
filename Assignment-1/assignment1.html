@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Assingment 1</title>
+    <style>
+        body{
+			margin: 0;
+			overflow: hidden;
+		}
+
+		video{
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.titles {
+            margin-left: 85%;
+			margin-top: 5%;
+        }
+
+        .Name {
+            margin-top: 5%;
+            margin-left: 30%;
+			position: absolute;
+        }
+
+        .main {
+            color: white;
+            font-family: Arial;
+			background-color: black;
+        }
+
+        li {
+            list-style: none;
+			margin-right: 20px;
+        }
+
+        .titles .fa-person::before {
+            content: "\f007"; /* Font Awesome Unicode for person icon */
+			margin-right: 5px;
+        }
+
+        .titles .fa-file::before {
+            content: "\f15c"; /* Font Awesome Unicode for file icon */
+			margin-right: 5px;
+        }
+
+        .titles .fa-smile::before {
+            content: "\f118"; /* Font Awesome Unicode for smiling face icon */
+			margin-right: 5px;
+        }
+
+        .titles .fa-suitcase::before {
+            content: "\f0f2"; /* Font Awesome Unicode for suitcase icon */
+			margin-right: 5px;
+        }
+		.titles i{
+			display: inline-block;
+			width: 40px;
+			text-align: center;
+			margin-right: 10px;
+		}
+    </style>
+</head>
+<body class="main">
+	<video autoplay muted loop id="background-video">
+		<source src="background.mp4" type="video/mp4">
+	</video>
+
+    <nav class="titles">
+        <ul>
+            <li><i class="fas fa-person"></i>About Me</li>
+            <li><i class="far fa-file"></i>Resume</li>
+            <li><i class="far fa-smile"></i>Hobbies</li>
+            <li><i class="fas fa-suitcase"></i>Work</li>
+        </ul>
+    </nav>
+
+    <div class="Name">
+        <p><h1>Steven Sousa</h1></p>
+        <p>Here's my home page.</p>
+    </div>
+</body>
+</html>
