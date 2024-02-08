@@ -1,0 +1,6 @@
+#password0:invalid{
+    border: 2px solid red;
+  }
+#password0:valid{
+border: 2px solid green;
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./stylesheets/validation.css">
+  <script src="./javascripts/validation.js"></script>
+
+  <title>Form Validation</title>
+</head>
+<body>
+  <!--
+    https://www.w3schools.com/js/js_validation_api.asp
+    https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation
+  -->
+  <form id="myForm" action="#" method="post">
+    <input type="password" id="password0" required minlength="8" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$" placeholder="password0"><br>
+    <input type="password" id="password1" required minlength="8" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$" placeholder="password1"><br>
+    <input type="password" id="password2" placeholder="password2">
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>
