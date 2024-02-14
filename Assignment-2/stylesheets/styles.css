@@ -1,0 +1,31 @@
+header {
+    background-color: red;
+
+    h4 {
+        text-align: center;
+        padding: 2%;
+    }
+}
+
+main {
+    text-align: center;
+}
+
+.course-description {
+    display: none;
+}
+
+.course-title:hover+.course-description {
+    display: block;
+    animation: fadein 1.5s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
