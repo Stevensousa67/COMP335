@@ -1,16 +1,35 @@
-// 2. This code loads the IFrame Player API code asynchronously.
 var tag = document.createElement('script');
 
 tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-// 3. This function creates an <iframe> (and YouTube player)
-//    after the API code downloads.
-var player;
+var player_one, player_two, player_three;
 
 function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
+    player_one = new YT.Player('player_one', {
+        height: '360',
+        width: '640',
+        videoId: 'WywSo-k5YIs',
+        playerVars: {
+            'autoplay': 0,
+            'playsinline': 1,
+            'mute': 1
+        },
+    });
+
+    player_two = new YT.Player('player_two', {
+        height: '360',
+        width: '640',
+        videoId: 'z0AiuXah9WY',
+        playerVars: {
+            'autoplay': 0,
+            'playsinline': 1,
+            'mute': 1
+        },
+    });
+
+    player_three = new YT.Player('player_three', {
         height: '360',
         width: '640',
         videoId: 'dWjYph2Hrk8',
@@ -22,15 +41,14 @@ function onYouTubeIframeAPIReady() {
     });
 }
 
-function playVideo() {
+function playVideo(player) {
     player.playVideo();
 }
 
-function pauseVideo() {
+function pauseVideo(player) {
     player.pauseVideo();
 }
 
-// these functions handle checking if the element is visible in the viewport
 function isElementInViewport(el) {
     var rect = el.getBoundingClientRect();
 
@@ -42,19 +60,17 @@ function isElementInViewport(el) {
     );
 }
 
-function updateVideoPlayerStatus() {
-    var video_player = document.getElementById('player');
-
-    // element visible in the viewport
-    if (isElementInViewport(video_player)) {
-        playVideo();
-        console.log('Video player visible.');
+function updateVideoPlayerStatus(player) {
+    if (isElementInViewport(player.getIframe())) {
+        playVideo(player);
     }
-    // element not visible in the viewport
     else {
-        pauseVideo();
-        console.log('Video player NOT visible.');
+        pauseVideo(player);
     }
 }
 
-window.addEventListener('scroll', updateVideoPlayerStatus)
+window.addEventListener('scroll', function () {
+    updateVideoPlayerStatus(player_one);
+    updateVideoPlayerStatus(player_two);
+    updateVideoPlayerStatus(player_three);
+});
