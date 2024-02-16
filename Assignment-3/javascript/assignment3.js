@@ -41,3 +41,29 @@ function onPlayerStateChange(event) {
 function stopVideo() {
     player.stopVideo();
 }
+
+
+// these functions handle checking if the element is visible in the viewport
+var element = document.getElementById('player');
+
+function isElementInViewport(element) {
+    var rect = element.getBoundingClientRect();
+
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
+
+function updateVideoPlayerStatus(element) {
+    if (isElementInViewport(element)) {
+        console.log('Element is visible in the viewport.')
+    }
+    else {
+        console.log('Element is not visible in the viewport.')
+    }
+}
+
+window.addEventListener('scroll', updateVideoPlayerStatus)
