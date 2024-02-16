@@ -10,44 +10,27 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player;
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-        height: '390',
+        height: '360',
         width: '640',
-        videoId: 'M7lc1UVf-VE',
+        videoId: 'dWjYph2Hrk8',
         playerVars: {
+            'autoplay': 0,
             'playsinline': 1
         },
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-        }
     });
 }
 
-// 4. The API will call this function when the video player is ready.
-function onPlayerReady(event) {
-    event.target.playVideo();
+function playVideo() {
+    player.playVideo();
 }
 
-// 5. The API calls this function when the player's state changes.
-//    The function indicates that when playing a video (state=1),
-//    the player should play for six seconds and then stop.
-var done = false;
-function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.PLAYING && !done) {
-        setTimeout(stopVideo, 6000);
-        done = true;
-    }
+function pauseVideo() {
+    player.pauseVideo();
 }
-function stopVideo() {
-    player.stopVideo();
-}
-
 
 // these functions handle checking if the element is visible in the viewport
-var element = document.getElementById('player');
-
-function isElementInViewport(element) {
-    var rect = element.getBoundingClientRect();
+function isElementInViewport(el) {
+    var rect = el.getBoundingClientRect();
 
     return (
         rect.top >= 0 &&
@@ -57,12 +40,18 @@ function isElementInViewport(element) {
     );
 }
 
-function updateVideoPlayerStatus(element) {
-    if (isElementInViewport(element)) {
-        console.log('Element is visible in the viewport.')
+function updateVideoPlayerStatus() {
+    var video_player = document.getElementById('player');
+
+    // element visible in the viewport
+    if (isElementInViewport(video_player)) {
+        playVideo();
+        console.log('Video player visible.');
     }
+    // element not visible in the viewport
     else {
-        console.log('Element is not visible in the viewport.')
+        pauseVideo();
+        console.log('Video player NOT visible.');
     }
 }
 
