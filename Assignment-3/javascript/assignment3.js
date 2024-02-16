@@ -15,7 +15,8 @@ function onYouTubeIframeAPIReady() {
         videoId: 'dWjYph2Hrk8',
         playerVars: {
             'autoplay': 0,
-            'playsinline': 1
+            'playsinline': 1,
+            'mute': 1
         },
     });
 }
