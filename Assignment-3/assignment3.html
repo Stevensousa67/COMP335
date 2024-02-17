@@ -14,6 +14,15 @@
     <title>Assignment 3</title>
 </head>
 
+<style>
+    @media (max-width: 770px){
+        #player_one, #player_two, #player_three{
+            width: 100%;
+            height: 360px;
+        }
+    }
+</style>
+
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -48,9 +57,7 @@
     <div class="container">
         <div class="row text-center">
             <div class="col">
-                <div class="video-container">
-                    <iframe id="player_one" src="https://www.youtube.com/embed/WywSo-k5YIs" frameborder="0" allowfullscreen height="360" width="60%"></iframe>
-                </div>
+                <div id="player_one"></div>
             </div>
         </div>
     </div>
@@ -266,13 +273,10 @@
     <div class="container">
         <div class="row text-center">
             <div class="col">
-                <div class="video-container">
-                    <iframe id="player_two" src="https://www.youtube.com/embed/z0AiuXah9WY" frameborder="0" allowfullscreen height="360" width="60%"></iframe>
-                </div>
+                <div id="player_two"></div>
             </div>
         </div>
     </div>
-
 
     <div class="container">
         <div class="col">
@@ -485,9 +489,7 @@
     <div class="container">
         <div class="row text-center">
             <div class="col">
-                <div class="video-container">
-                    <iframe id="player_three" src="https://www.youtube.com/embed/dWjYph2Hrk8" frameborder="0" allowfullscreen height="360" width="60%"></iframe>
-                </div>
+                <div id="player_three"></div>
             </div>
         </div>
     </div>
