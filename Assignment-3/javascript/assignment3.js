@@ -8,9 +8,6 @@ var player_one, player_two, player_three;
 
 function onYouTubeIframeAPIReady() {
     player_one = new YT.Player('player_one', {
-        height: '360',
-        width: '640',
-        videoId: 'WywSo-k5YIs',
         playerVars: {
             'autoplay': 0,
             'playsinline': 1,
@@ -19,9 +16,6 @@ function onYouTubeIframeAPIReady() {
     });
 
     player_two = new YT.Player('player_two', {
-        height: '360',
-        width: '640',
-        videoId: 'z0AiuXah9WY',
         playerVars: {
             'autoplay': 0,
             'playsinline': 1,
@@ -30,9 +24,6 @@ function onYouTubeIframeAPIReady() {
     });
 
     player_three = new YT.Player('player_three', {
-        height: '360',
-        width: '640',
-        videoId: 'dWjYph2Hrk8',
         playerVars: {
             'autoplay': 0,
             'playsinline': 1,
