@@ -134,32 +134,35 @@
       calendar.innerHTML = '';
     }
 
-    function checkSubmit() {
-      /*When you click submit button, you will need to display calendar here.*/
-      //const month = document.getElementById("month");
-      //const year = document.getElementById("year"); 
-      // Print Month and Year (e.g., October 2022)
-      heading.innerHTML = month.value + " " + year.value + " Calendar";
-
-      // print <div>Sunday</div><div>Monday</div> ~ <div>Saturday</div>
-      var col;
-      for (col = 0; col < 7; col++) {
-        calendar.innerHTML += "<div>" + intToDay(col) + "</div>";
-      }
-      // div tag has CSS style (refer to style tag inside head)
-      // this will allow div tag to move to next line //
-      calendar.innerHTML += "<div class=\"end\"></div>";
-
-      // To Do: 
-      // depending on the day that user types, we may need to print less than 7 days
-      // if user types Wed, then pint &nbsp; for Sun, Mon, Tue
-
-      // You may need to use % (Modulo - remainder) operator to print days to next line
-      // You may need to use loop (for, while, do while, do until, etc) to print up to max days.
-      // I found that do while loop is easier than others, but it is up to you
-      // We will print whatever user types max days (31, 30, 29, 28)
-      // You may use inline style CSS to print red color for Sundays
+  function checkSubmit() {
+    heading.innerHTML = month.value + " " + year.value + " Calendar";
+    let col;
+    
+    for (col = 0; col < 7; col++) {
+      calendar.innerHTML += "<div>" + intToDay(col) + "</div>";  // Print the headers for each day of the week
     }
+    calendar.innerHTML += "<div class=\"end\"></div>";
+
+    const startingDayIndex = dayToInt(firstDay.value); // Start by finding the index of the first day of the month
+    let dayCount = 1; // Start counting from the first day of the month
+
+    while (dayCount <= parseInt(maxDay.value)) { // Loop through each row
+      calendar.innerHTML += "<div class=\"end\"></div>"; // Start a new row
+
+      for (col = 0; col < 7; col++) { // Loop through each day of the week
+        if (dayCount > parseInt(maxDay.value)) { // If we've reached the end of the month, stop
+          break;
+        }
+
+        if (col < startingDayIndex && dayCount === 1) {
+          calendar.innerHTML += "<div>&nbsp;</div>"; // Print empty space for days before the first day of the month
+        } else {
+          calendar.innerHTML += "<div style='color: " + ((col === 0) ? "red" : "inherit") + "'>" + dayCount + "</div>"; // Print the day number
+          dayCount++;
+        }
+      }
+    }
+  }
   </script>
 </head>
 
