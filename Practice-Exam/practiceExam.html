@@ -38,13 +38,26 @@
       resetButton = document.getElementById("reset");
       submitButton = document.getElementById("submit");
 
-      year.addEventListener('blur', checkYear);
-      month.addEventListener('blur', checkMonth);
-      maxDay.addEventListener('blur', checkMaxDaysInMonth);
-      firstDay.addEventListener('blur', checkFirstDay);
+      year.addEventListener('input', checkErrors);
+      month.addEventListener('input', checkErrors);
+      maxDay.addEventListener('input', checkErrors);
+      firstDay.addEventListener('input', checkErrors);
       submitButton.addEventListener('click', checkSubmit);
       resetButton.addEventListener('click', resetForm);
     });
+
+    function checkErrors() {
+      let hasErrors = false;
+
+      if (!checkYear() || !checkMonth() || !checkMaxDaysInMonth() || !checkFirstDay()) {
+        hasErrors = true;
+      }
+      if (hasErrors) {
+        submitButton.disabled = true;
+      } else {
+        submitButton.disabled = false;
+      }
+    }
 
     function intToDay(number) {
       return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][number];
@@ -54,57 +67,61 @@
       return { "Sunday": 0, "Monday": 1, "Tuesday": 2, "Wednesday": 3, "Thursday": 4, "Friday": 5, "Saturday": 6 }[dayname];
     }
 
-  function checkYear() {
-    const yearPattern = /^\d{4}$/;
-    if (!yearPattern.test(year.value)) {
-      showError("The <strong>year</strong> you entered is not in the correct YYYY format");
-    } else {
-      clearError();
-    }
-  }
-
-  function checkMonth() {
-    const months = { "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "Jun": 6, "Jul": 7, "Aug": 8, "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12 };
-    if (!months[month.value]) {
-      showError("The <strong>month</strong> you entered is not in the correct form");
-    } else {
-      clearError();
-    }
-  }
-
-  function checkMaxDaysInMonth() {
-    let maxDays = { 'Jan': 31, 'Feb': 28, 'Mar': 31, 'Apr': 30, 'May': 31, 'Jun': 30, 'Jul': 31, 'Aug': 31, 'Sep': 30, 'Oct': 31, 'Nov': 30, 'Dec': 31 };
-
-    // Check for leap year and modify maxDays if necessary
-    if ((parseInt(year.value) % 4 === 0 && parseInt(year.value) % 100 !== 0) || parseInt(year.value) % 400 === 0) {
-      maxDays['Feb'] = 29;
-      console.log(maxDays);
+    function checkYear() {
+      const yearPattern = /^\d{4}$/;
+      if (!yearPattern.test(year.value)) {
+        showError("The <strong>year</strong> you entered is not in the correct YYYY format");
+        return false;
+      } else {
+        clearError();
+        return true;
+      }
     }
 
-    // Validate if the input day is within the valid range for the selected month
-    if (parseInt(maxDay.value) !== maxDays[month.value]) {
-      showError("The <strong>max day</strong> you entered is not the correct max day of the month selected.");
-    } else {
-      clearError();
+    function checkMonth() {
+      const months = { "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "Jun": 6, "Jul": 7, "Aug": 8, "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12 };
+      if (!months[month.value]) {
+        showError("The <strong>month</strong> you entered is not in the correct form");
+        return false;
+      } else {
+        clearError();
+        return true;
+      }
     }
-  }
 
-  function checkFirstDay() {
-    if (!(dayToInt(firstDay.value) >= 0 && dayToInt(firstDay.value) <= 6)) {
-      showError("The <strong>days of the week</strong> you entered is not in the correct form");
-    } else {
-      clearError();
+    function checkMaxDaysInMonth() {
+      let maxDays = { 'Jan': 31, 'Feb': 28, 'Mar': 31, 'Apr': 30, 'May': 31, 'Jun': 30, 'Jul': 31, 'Aug': 31, 'Sep': 30, 'Oct': 31, 'Nov': 30, 'Dec': 31 };
+
+      if ((parseInt(year.value) % 4 === 0 && parseInt(year.value) % 100 !== 0) || parseInt(year.value) % 400 === 0) {
+        maxDays['Feb'] = 29;
+      }
+
+      if (parseInt(maxDay.value) !== maxDays[month.value]) {
+        showError("The <strong>max day</strong> you entered is not the correct max day of the month selected.");
+        return false;
+      } else {
+        clearError();
+        return true;
+      }
     }
-  }
 
-  function clearError() {
-    error.innerHTML = '';
-  }
-
+    function checkFirstDay() {
+      if (!(dayToInt(firstDay.value) >= 0 && dayToInt(firstDay.value) <= 6)) {
+        showError("The <strong>days of the week</strong> you entered is not in the correct form");
+        return false;
+      } else {
+        clearError();
+        return true;
+      }
+    }
 
     function showError(message) {
       error.innerHTML = "";
       error.innerHTML = message;
+    }
+
+    function clearError() {
+      error.innerHTML = '';
     }
 
     function resetForm() {
