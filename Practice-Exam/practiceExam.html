@@ -1,70 +1,133 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Monthly Calendar</title>
 
   <style>
     /* will make all text from error tag red */
-    error {color: red;}
+    error {
+      color: red;
+    }
+
     /* will have same width for all divs so that calendar aligns properly 
     calendar > div means any div tag inside (childern) of calendar class */
-    calendar > div {float:left; width:80px;}
+    calendar>div {
+      float: left;
+      width: 80px;
+    }
+
     /* this will allow div tag to move to next line (no floating to left) */
-    .end{clear:both;}
-  </style>  
-  <script >
+    .end {
+      clear: both;
+    }
+  </style>
+  <script>
 
-    // input: number (0-6), Output: days (Sunday ~ Saturday)
-    function inttoday(number) {
-      return ["Sunday","Monday","Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][number];
-    }
-    // input: day (Sunday ~ Saturday), output: number (0-6)
-    function daytoint(dayname) {
-      return {"Sunday": 0, "Monday": 1, "Tuesday": 2,"Wednesday": 3,"Thursday": 4,"Friday": 5,"Saturday":6}[dayname];
-    }
-    // To Do: Validate year - check 4 digits
-    function checkValidYear(year){
-      if year.length > 3
+    let error, heading, calendar, year, maxDay, month, firstDay, resetButton, submitButton;
 
-    }    
+    window.addEventListener("load", () => {
+      error = document.getElementById("error");
+      heading = document.getElementById("heading");
+      calendar = document.getElementById("calendar");
+      year = document.getElementById('year');
+      maxDay = document.getElementById('maxdays');
+      month = document.getElementById("month");
+      firstDay = document.getElementById("firstday");
+      resetButton = document.getElementById("reset");
+      submitButton = document.getElementById("submit");
+
+      year.addEventListener('blur', checkYear);
+      month.addEventListener('blur', checkMonth);
+      maxDay.addEventListener('blur', checkMaxDaysInMonth);
+      firstDay.addEventListener('blur', checkFirstDay);
+      submitButton.addEventListener('click', checkSubmit);
+      resetButton.addEventListener('click', resetForm);
+    });
+
+    function intToDay(number) {
+      return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][number];
+    }
+
+    function dayToInt(dayname) {
+      return { "Sunday": 0, "Monday": 1, "Tuesday": 2, "Wednesday": 3, "Thursday": 4, "Friday": 5, "Saturday": 6 }[dayname];
+    }
+
+  function checkYear() {
+    const yearPattern = /^\d{4}$/;
+    if (!yearPattern.test(year.value)) {
+      showError("The <strong>year</strong> you entered is not in the correct YYYY format");
+    } else {
+      clearError();
+    }
+  }
+
+  function checkMonth() {
+    const months = { "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "Jun": 6, "Jul": 7, "Aug": 8, "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12 };
+    if (!months[month.value]) {
+      showError("The <strong>month</strong> you entered is not in the correct form");
+    } else {
+      clearError();
+    }
+  }
+
+  function checkMaxDaysInMonth() {
+    let maxDays = { 'Jan': 31, 'Feb': 28, 'Mar': 31, 'Apr': 30, 'May': 31, 'Jun': 30, 'Jul': 31, 'Aug': 31, 'Sep': 30, 'Oct': 31, 'Nov': 30, 'Dec': 31 };
+
+    // Check for leap year and modify maxDays if necessary
+    if ((parseInt(year.value) % 4 === 0 && parseInt(year.value) % 100 !== 0) || parseInt(year.value) % 400 === 0) {
+      maxDays['Feb'] = 29;
+      console.log(maxDays);
+    }
+
+    // Validate if the input day is within the valid range for the selected month
+    if (parseInt(maxDay.value) !== maxDays[month.value]) {
+      showError("The <strong>max day</strong> you entered is not the correct max day of the month selected.");
+    } else {
+      clearError();
+    }
+  }
+
+  function checkFirstDay() {
+    if (!(dayToInt(firstDay.value) >= 0 && dayToInt(firstDay.value) <= 6)) {
+      showError("The <strong>days of the week</strong> you entered is not in the correct form");
+    } else {
+      clearError();
+    }
+  }
+
+  function clearError() {
+    error.innerHTML = '';
+  }
 
 
-    // Given: Validate month (Jan ~ Dec)
-    function checkmonth() {
-      const month = document.getElementById("month");
-      let months = {"Jan":1, "Feb":2, "Mar":3, "Apr":4, "May":5, "Jun":6, "Jul":7, "Aug":8,"Sep":9,"Oct":10,"Nov":11,"Dec":12};
-      if (!months[month.value]) {
-        error.innerHTML="The <strong>month</strong> you entered is not in the correct form";
-      }
+    function showError(message) {
+      error.innerHTML = "";
+      error.innerHTML = message;
     }
-    // To Do: Validate max days: Days of the month (between 28 and 31)
-    function checkMaxDaysInMonth(){
-      const maxdays = document.querySelector('#maxdays');
-      let maxDays = {'Jan': 31, 'Feb': 28, 'Mar': 31, 'Apr': 30, 'May': 31, 'Jun': 30, 'Jul': 31, 'Aug': 31, 'Sep': 30, 'Oct': 31, 'Nov': 30, 'Dec': 31};
-      if(!maxDays[maxdays.value]){
-        error.innerHTML = "The <strong>max day</stron> you entered is not the correct max day of the month selected.";
-      }
+
+    function resetForm() {
+      year.defaultValue = '';
+      month.defaultValue = '';
+      maxDay.defaultValue = '';
+      firstDay.defaultValue = '';
+      error.innerHTML = '';
+      heading.innerHTML = '';
+      calendar.innerHTML = '';
     }
-    
-    // Given: Validate First day of the week: Sunday ~ Saturday
-    function checkfirstday(){
-      const firstday = document.getElementById("firstday");
-      if (!( daytoint(firstday.value)>=0 && daytoint(firstday.value)<=6) ){
-        error.innerHTML="The <strong>days of the week</strong> you entered is not in the correct form";
-      }
-    }
-    // When you click submit button, you will need to display calendar here.
-    function checksubmit(){
+
+    function checkSubmit() {
+      /*When you click submit button, you will need to display calendar here.*/
       //const month = document.getElementById("month");
       //const year = document.getElementById("year"); 
       // Print Month and Year (e.g., October 2022)
-      heading.innerHTML= month.value + " " + year.value + " Calendar";
+      heading.innerHTML = month.value + " " + year.value + " Calendar";
 
       // print <div>Sunday</div><div>Monday</div> ~ <div>Saturday</div>
       var col;
-      for (col = 0; col < 7 ; col++) {
-        calendar.innerHTML += "<div>" + inttoday(col) + "</div>";
+      for (col = 0; col < 7; col++) {
+        calendar.innerHTML += "<div>" + intToDay(col) + "</div>";
       }
       // div tag has CSS style (refer to style tag inside head)
       // this will allow div tag to move to next line //
@@ -79,34 +142,24 @@
       // I found that do while loop is easier than others, but it is up to you
       // We will print whatever user types max days (31, 30, 29, 28)
       // You may use inline style CSS to print red color for Sundays
-    } 
-
-    // Register listeners
-    window.addEventListener("load", ()=> {
-/*       let error = document.getElementById("error");
-      let heading = document.getElementById("heading");
-      let calendar = document.getElementById("calendar");
- */
-      document.getElementById("month").addEventListener('change', checkmonth);  
-      document.getElementById("firstday").addEventListener('change',checkfirstday);  
-      document.getElementById("submit").addEventListener('click',checksubmit);
-    });
+    }
   </script>
 </head>
+
 <body>
   <h1> Exam: Display Calendar for one month</h1>
-  <form>
-    <input type = "text"  id = "year" value="2024" placeholder="e.g., 2024">
-      &nbsp; What Year is this calendar for?<br>
-    <input type = "text"  id = "month"  value="Feb" placeholder="e.g., Feb ">
-      &nbsp; What Month is this calendar for?<br>
-    <input type = "text"  id = "maxdays" value="29" placeholder="e.g., 29">
-      &nbsp; How many days does this month have?<br>
-    <input type = "text"  id = "firstday" value="Thursday" placeholder="e.g., Thursday">
-      &nbsp; What is the first day of the month?<br>
+  <form id="myForm">
+    <input type="text" id="year" value="2024" placeholder="e.g., 2024">
+    &nbsp; What Year is this calendar for?<br>
+    <input type="text" id="month" value="Feb" placeholder="e.g., Feb ">
+    &nbsp; What Month is this calendar for?<br>
+    <input type="text" id="maxdays" value="29" placeholder="e.g., 29">
+    &nbsp; How many days does this month have?<br>
+    <input type="text" id="firstday" value="Thursday" placeholder="e.g., Thursday">
+    &nbsp; What is the first day of the month?<br>
 
-    <input type = "reset"  id = "reset" >
-    <input type = "button"  id = "submit" value="submit">
+    <input type="reset" id="reset">
+    <input type="button" id="submit" value="submit">
   </form>
   <br>
   <!-- place to print calendar and error messages-->
@@ -114,4 +167,5 @@
   <h2 id="heading"></h2>
   <calendar id="calendar"></calendar>
 </body>
+
 </html>
