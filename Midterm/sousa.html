@@ -1,0 +1,145 @@
+<!--Author: Steven Sousa-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam 1</title>
+
+    <style>
+        /* will make all text from error tag red */
+        error {
+            color: red;
+        }
+
+        /* will have same width for all divs so that calendar aligns properly 
+        calendar > div means any div tag inside (childern) of calendar class */
+        matrix>div {
+            float: left;
+            width: 80px;
+        }
+
+        /* this will allow div tag to move to next line (no floating to left) */
+        .end {
+            clear: both;
+        }
+    </style>
+
+    <script>
+
+        let error, heading, matrix, row, column, resetButton, submitButton;
+
+        window.addEventListener("load", () => {
+            error = document.getElementById("error");
+            heading = document.getElementById("heading");
+            matrix = document.getElementById("matrix");
+            row = document.getElementById('row');
+            column = document.getElementById('column');
+            resetButton = document.getElementById("reset");
+            submitButton = document.getElementById("submit");
+
+            row.addEventListener('input', checkErrors);
+            column.addEventListener('input', checkErrors);
+            submitButton.addEventListener('click', checkSubmit);
+            resetButton.addEventListener('click', resetForm);
+        });
+
+        function checkErrors() {
+            let hasErrors = false;
+
+            if (!checkRow() || !checkColumn()) {
+                hasErrors = true;
+            }
+            if (hasErrors) {
+                submitButton.disabled = true;
+            } else {
+                submitButton.disabled = false;
+            }
+        }
+
+        function checkRow() {
+            const pattern = /^\d{2}$/;
+            if (!pattern.test(row.value)) {
+                showError("The <strong>ROW</strong> you entered is not in the correct form!");
+                return false;
+            } else {
+                clearError();
+                return true;
+            }
+        }
+
+        function checkColumn() {
+            const pattern = /^\d{2}$/;
+            if (!pattern.test(column.value)) {
+                showError("The <strong>COLUMNS</strong> you entered is not in the correct form!");
+                return false;
+            } else {
+                clearError();
+                return true;
+            }
+        }
+
+        function showError(message) {
+            error.innerHTML = "";
+            error.innerHTML = message;
+        }
+
+        function clearError() {
+            error.innerHTML = '';
+        }
+
+        function resetForm() {
+            row.defaultValue = '';
+            column.defaultValue = '';
+            error.innerHTML = '';
+            heading.innerHTML = '';
+            matrix.innerHTML = '';
+        }
+
+        function checkSubmit() {
+            heading.innerHTML = '';
+            matrix.innerHTML = '';
+            heading.innerHTML = row.value + " by " + column.value + " Multiplication Table";
+            let col, rows;
+
+            // print column headers
+            for (col = 0; col <= column.value; col++) {
+                if (col === 0){
+                    matrix.innerHTML += "<div>" + '*' + "</div>";
+                } else {
+                    matrix.innerHTML += "<div style=\"color:red;\">" + col + "</div>"; 
+                }
+            }
+            matrix.innerHTML += "<div class=\"end\"></div>";
+
+            for(rows = 1; rows <= row.value; rows++){
+                matrix.innerHTML += "<div style=\"color:red;\">" + (rows) + "</div>";
+                for(item = 1; item <= column.value; item++){
+                    matrix.innerHTML += "<div>" + (rows * item) + "</div>";
+                }
+                matrix.innerHTML += "<div class=\"end\"></div>";
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1> Exam 1: Display Multiplication Table</h1>
+    <form id="myForm">
+        <input type="text" id="row" value="" placeholder="Row(e.g., 10)">
+        &nbsp; Enter a number for a row (Max: 99)<br>
+        <input type="text" id="column" value="" placeholder="Column(e.g., 8)">
+        &nbsp; Enter a number for a column (Max: 99)<br>
+        <input type="reset" id="reset">
+        <input type="button" id="submit" value="submit">
+    </form>
+    <br>
+    <!-- place to print matrix and error messages-->
+    <error id="error"></error>
+    <h2 id="heading"></h2>
+    <matrix id="matrix"></matrix>
+</body>
+
+</html>
