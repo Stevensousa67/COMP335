@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin="anonymous"></script>
+
+    <title>React Hello</title>    
+</head>
+<body>
+    <!--React Logo-->
+    <svg width="10%" height="10%" viewBox="-10.5 -9.45 21 18.9" fill="none" 
+        xmlns="http://www.w3.org/2000/svg" 
+        class="text-sm me-0 w-10 h-10 text-link dark:text-link-dark flex origin-center transition-all ease-in-out">
+        <circle cx="0" cy="0" r="2" fill="#2785ab"></circle>
+        <g stroke="#2785ab" stroke-width="1" fill="none">
+            <ellipse rx="10" ry="4.5"></ellipse><ellipse rx="10" ry="4.5" transform="rotate(60)"></ellipse>
+            <ellipse rx="10" ry="4.5" transform="rotate(120)"></ellipse></g>
+    </svg>
+
+    <div id="hello">
+        <!-- This element's contents will be replaced with your component. -->
+    </div>
+    <div id="uploader">
+        <!-- This element's contents will be replaced with your component. -->
+    </div>
+
+    
+    <!-- Load our React component. -->
+    <script src="./javascripts/reactHello.js" type="text/babel"></script>
+    <script src="./javascripts/reactUploader.js" type="text/babel"></script>
+    <!--
+        Browsers do not understand React's JSX. It should be transformed into regular javaScript. 
+        To do this, a compiler is needed. The compiler that does this is Babel.
+        We should ideally pre-compile the code and inject it into the browser, 
+        but for simple example like “Hello World”, 
+        Babel provides a standalone compiler that can be used in the browser. 
+        The compiler also needs to be told which scripts should be transformed, 
+        so must include type="text/babel"
+    -->
+
+</body>
+</html>
