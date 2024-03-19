@@ -28,9 +28,10 @@ function Session() {
       <h1>Counting Sessions</h1>
       {/* Check if message is not empty before accessing its properties */}
       {message && (
+        // in-class exercise: display first visit as "for the first time" and subsequent visits as "x times.
         <>
           <p>Today is {message.dates}</p>
-          <p>You visited this page <strong>{message.views} times</strong></p>
+          <p>You visited this page <strong>{message.views === 1 ? 'for the first time.' : `${message.views} times.` }</strong></p> 
         </>
       )}
     </div>
