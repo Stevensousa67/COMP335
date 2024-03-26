@@ -30,9 +30,10 @@ router.post('/madlibs', function (req, res) {
     adjective: req.body.adjective,
     noun: req.body.noun,
     building: req.body.building,
-    name: req.body.name,
+    name1: req.body.name1,
+    name2: req.body.name2,
+    name3: req.body.name3,
     object: req.body.object,
-    pluralNoun: req.body.pluralNoun,
     adverb: req.body.adverb,
     verb: req.body.verb,
   });
