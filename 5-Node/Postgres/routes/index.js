@@ -24,10 +24,23 @@ router.get('/books', function(req, res, next) {
   res.sendFile(path.join(__dirname,'..', 'public','books.html'));
 });
 
+router.get('/cars', function (req, res, next) {
+  res.sendFile(path.join(__dirname, '..', 'public', 'cars.html'));
+});
+
 router.get('/booksOut', function(req, res, next) {
   // client object enables issuing SQL queries
   client.query('SELECT * FROM book', function(err, result){
     if (err) {next(err);}
+    res.json(result.rows);
+    console.log(result.rows);
+  });
+});
+
+router.get('/carsOut', function (req, res, next) {
+  // client object enables issuing SQL queries
+  client.query('SELECT * FROM cars', function (err, result) {
+    if (err) { next(err); }
     res.json(result.rows);
     console.log(result.rows);
   });
